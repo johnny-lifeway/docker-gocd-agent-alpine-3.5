@@ -46,13 +46,14 @@ RUN \
   addgroup -g 1000 go && \ 
   adduser -D -u 1000 -G go go && \
   apk --no-cache upgrade && \
-  apk add --no-cache openjdk8-jre-base git mercurial subversion openssh-client bash curl && \
+  apk add --no-cache openjdk8 git mercurial subversion openssh-client bash curl && \
 # download the zip file
   curl --fail --location --silent --show-error "https://download.gocd.org/binaries/17.8.0-5277/generic/go-agent-17.8.0-5277.zip" > /tmp/go-agent.zip && \
 # unzip the zip file into /go-agent, after stripping the first path prefix
   unzip /tmp/go-agent.zip -d / && \
   mv go-agent-17.8.0 /go-agent && \
-  rm /tmp/go-agent.zip
+  rm /tmp/go-agent.zip && \
+  bash -xc "export PATH=/usr/lib/jvm/default-jvm/bin:$PATH"
 
 ADD docker-entrypoint.sh /
 

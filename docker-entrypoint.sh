@@ -18,6 +18,8 @@ yell() { echo "$0: $*" >&2; }
 die() { yell "$*"; exit 111; }
 try() { echo "$ $@" 1>&2; "$@" || die "cannot $*"; }
 
+export PATH=/usr/lib/jvm/default-jvm/bin:$PATH
+
 setup_autoregister_properties_file_for_elastic_agent() {
   echo "agent.auto.register.key=${GO_EA_AUTO_REGISTER_KEY}" >> $1
   echo "agent.auto.register.environments=${GO_EA_AUTO_REGISTER_ENVIRONMENT}" >> $1
